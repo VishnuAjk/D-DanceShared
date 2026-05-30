@@ -14,7 +14,7 @@ export const UserSchema = z.object({
   _id: ObjectIdString,
   phone: PhoneNumber,
   name: z.string().min(2).max(100),
-  role: z.enum(['super_admin', 'branch_admin', 'instructor', 'parent']),
+  role: z.enum(['super_admin', 'branch_admin', 'instructor', 'customer', 'parent']),
   branchIds: z.array(ObjectIdString),
   status: UserStatus,
   createdAt: z.string(),
@@ -71,18 +71,19 @@ export const BatchSchema = z.object({
   isActive: z.boolean()
 });
 
-export const ChildSchema = z.object({
+export const StudentProfileSchema = z.object({
   _id: ObjectIdString,
   name: z.string().min(2).max(100),
   dob: z.string(),
   gender: Gender,
-  parentId: ObjectIdString,
+  customerId: ObjectIdString,
+  relationshipToCustomer: z.enum(['self', 'child', 'family_member']).default('child'),
   photo: z.string().url().optional()
 });
 
 export const EnrollmentSchema = z.object({
   _id: ObjectIdString,
-  childId: ObjectIdString,
+  studentProfileId: ObjectIdString,
   batchId: ObjectIdString,
   branchId: ObjectIdString,
   status: EnrollmentStatus,
@@ -96,7 +97,7 @@ export const EnrollmentSchema = z.object({
 export const FeeLedgerSchema = z.object({
   _id: ObjectIdString,
   enrollmentId: ObjectIdString,
-  childId: ObjectIdString,
+  studentProfileId: ObjectIdString,
   branchId: ObjectIdString,
   month: MonthString,
   amount: z.number().positive(),
