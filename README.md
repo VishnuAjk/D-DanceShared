@@ -24,8 +24,15 @@ If shared types change:
 
 For GitHub-hosted separate repos, this package should later be published privately or moved to its own installable repository workflow.
 
+## CI and releases
+
+Pull requests to `env/dev` and `main`, plus direct pushes to those branches,
+run typechecking, linting, and a production build. Frontend and backend pin a
+specific shared commit, so shared changes must be merged first and each
+consumer's dependency must then be deliberately updated and validated.
+
 ## Workspace docs
 
 Use the workspace agent entry document for project-wide workflow:
 
-- [ENTRYPOINT.md](/home/vishnu/Projects/Dance%20Web%20App/docs/agent-dev/ENTRYPOINT.md)
+- `../docs/agent-dev/ENTRYPOINT.md` in the local workspace
